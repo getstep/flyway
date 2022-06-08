@@ -16,6 +16,9 @@
 package org.flywaydb.core.internal.database.postgresql;
 
 import org.flywaydb.core.api.configuration.Configuration;
+import org.flywaydb.core.api.logging.Log;
+import org.flywaydb.core.api.logging.LogFactory;
+import org.flywaydb.core.internal.database.base.BaseDatabaseType;
 import org.flywaydb.core.internal.database.base.Database;
 import org.flywaydb.core.internal.database.base.Table;
 import org.flywaydb.core.internal.jdbc.JdbcConnectionFactory;
@@ -26,6 +29,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class PostgreSQLDatabase extends Database<PostgreSQLConnection> {
+    private static final Log LOG = LogFactory.getLog(BaseDatabaseType.class);
+
     public PostgreSQLDatabase(Configuration configuration, JdbcConnectionFactory jdbcConnectionFactory, StatementInterceptor statementInterceptor) {
         super(configuration, jdbcConnectionFactory, statementInterceptor);
     }
@@ -56,9 +61,11 @@ public class PostgreSQLDatabase extends Database<PostgreSQLConnection> {
 
     @Override
     public void ensureSupported() {
+        LOG.info("Overriding Flyway Minimum Supported Version for Postgres to 9.6");
+
         ensureDatabaseIsRecentEnough("9.0");
 
-        ensureDatabaseNotOlderThanOtherwiseRecommendUpgradeToFlywayEdition("10", org.flywaydb.core.internal.license.Edition.ENTERPRISE);
+        ensureDatabaseNotOlderThanOtherwiseRecommendUpgradeToFlywayEdition("9.6", org.flywaydb.core.internal.license.Edition.ENTERPRISE);
 
         recommendFlywayUpgradeIfNecessaryForMajorVersion("14");
     }
