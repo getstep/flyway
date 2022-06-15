@@ -101,7 +101,7 @@ public class ClassPathScanner<I> implements ResourceAndClassScanner<I> {
                             classLoader);
                 } catch(Throwable e) {
                     Throwable rootCause = ExceptionUtils.getRootCause(e);
-                    LOG.warn("Skipping " + Callback.class + ": " + ClassUtils.formatThrowable(e) + (
+                    LOG.debug("Skipping " + Callback.class + ": " + ClassUtils.formatThrowable(e) + (
                             rootCause == e
                                     ? ""
                                     : " caused by " + ClassUtils.formatThrowable(rootCause)
@@ -188,7 +188,7 @@ public class ClassPathScanner<I> implements ResourceAndClassScanner<I> {
                                 jarFile = new JarFile(url.getPath().substring("file:".length()));
                             }
                         } catch (IOException | SecurityException e) {
-                            LOG.warn("Skipping unloadable jar file: " + url + " (" + e.getMessage() + ")");
+                            LOG.debug("Skipping unloadable jar file: " + url + " (" + e.getMessage() + ")");
                             continue;
                         }
 

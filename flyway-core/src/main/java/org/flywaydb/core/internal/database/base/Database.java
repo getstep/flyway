@@ -150,7 +150,7 @@ public abstract class Database<C extends Connection> implements Closeable {
         String message = "Flyway upgrade recommended: " + databaseType + " " + computeVersionDisplayName(getVersion())
                 + " is newer than this version of Flyway and support has not been tested."
                 + " The latest supported version of " + databaseType + " is " + newestSupportedVersion + ".";
-        LOG.warn(message);
+        LOG.debug(message);
     }
 
     /**
